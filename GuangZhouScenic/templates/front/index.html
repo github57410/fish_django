@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <title>广州景点</title>
+    <link href="/static/css/mui.min.css" rel="stylesheet"/>
+    <link href="/static/css/basic.css" rel="stylesheet"/>
+    <link href="/static/css/app.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/icons-extra.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/iconfont.css"/>
+    <script src="/static/js/iconfont.js"></script>
+    <style>
+        .mui-btn {
+            padding: 0 5px;
+        }
+
+        .mui-popover {
+            width: 100px;
+            height: 80px;
+            font-size: 12px;
+            text-align: left;
+            line-height: 10px;
+        }
+
+        @media screen and (orientation: landscape) {
+            .mui-slider img {
+                height: 400px !important;
+            }
+
+            .imgradius {
+                height: 240px !important;
+            }
+        }
+
+        /*手机屏幕*/
+        @media screen and (orientation: portrait) {
+            .mui-slider img {
+                height: 200px !important;
+            }
+
+            .imgradius {
+                height: 120px !important;
+            }
+        }
+    </style>
+</head>
+<body>
+<header class="mui-bar mui-bar-transparent" style="background: #ffffff">
+    <h1 class="mui-title">
+        <div class="mui-input-row">
+            <input id="search" type="search" class="mui-input-clear" placeholder="请输入关键字">
+        </div>
+    </h1>
+    <a class="mui-icon mui-icon-search mui-pull-right" style="color: #000000" href="javascript:search()"></a>
+</header>
+<nav class="mui-bar mui-bar-tab mui-bar-topline">
+    <a class="mui-tab-item mui-active" data-id="home" href="">
+        <span class="mui-icon mui-icon-extra mui-icon-extra-class"></span>
+        <span class="mui-tab-label">景点</span>
+    </a>
+    <!--    <a class="mui-tab-item" data-id="fenxiaozhongxin" href="/article">-->
+    <!--        <span class="mui-icon mui-icon-extra mui-icon-extra-peoples"></span>-->
+    <!--        <span class="mui-tab-label">打卡</span>-->
+    <!--    </a>-->
+    <a class="mui-tab-item" data-id="user" href="/me">
+        <span class="mui-icon mui-icon-person"></span>
+        <span class="mui-tab-label">我的</span>
+    </a>
+</nav>
+
+<div class="mui-content mui-table-view">
+    <div class="mui-slider">
+        <div class="mui-slider-group mui-slider-loop">
+            <!--支持循环，需要重复图片节点-->
+            {% for scenic in scenicList %}
+            <div class="mui-slider-item mui-slider-item-duplicate"><a href="/scenic/view?id={{ scenic.id }}">
+                <img src="{{ scenic.img }}"/></a>
+            </div>
+            {% endfor %}
+            <!--支持循环，需要重复图片节点-->
+            <div class="mui-slider-item mui-slider-item-duplicate"><a href="/scenic/view?id={{ firstScenic.id }}">
+                <img src="{{ firstScenic.img }}"/></a>
+            </div>
+        </div>
+    </div>
+    <ul class="mui-table-view mui-grid-view mui-grid-9">
+        <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4"></li>
+        <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4">
+            <a href="#">
+                <img class="icon" aria-hidden="true" src="/static/images/logo.png">
+                <div class="mui-media-body">广州风景一览</div>
+            </a>
+        </li>
+        <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4"></li>
+    </ul>
+    <div class="mui-content-padded">
+        <ul class="mui-table-view mui-grid-view" id="list">
+        </ul>
+    </div>
+    <div class="getbottom"><h6>到底了</h6></div>
+</div>
+
+<script type="text/html" id="template">
+    <li class="mui-table-view-cell mui-media mui-col-xs-6">
+        <a href="/scenic/view?id=#id">
+            <img class="mui-media-object imgradius" src="#img">
+            <div class="mui-media-body mui-text-left">#name</div>
+            <div class="price_pay">
+                <!--                <h4 class="mui-pull-left pricecolor">#address</h4>-->
+                <!--                <h6 class="mui-pull-right">00</h6>-->
+            </div>
+        </a>
+    </li>
+</script>
+<script src="/static/js/common.js"></script>
+<script src="/static/js/mui.min.js"></script>
+<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+    mui.init();
+    mui.plusReady(function () {
+    });
+
+    mui('.mui-scroll-wrapper').scroll();
+    mui('body').on('shown', '.mui-popover', function (e) {
+    });
+    mui('body').on('hidden', '.mui-popover', function (e) {
+    });
+
+    setTimeout(function () {
+        var gallery = mui('.mui-slider');
+        gallery.slider({
+            interval: 1800//自动轮播周期，若为0则不自动播放，默认为0；
+        });
+    }, 300);
+
+    mui('body').on('tap', 'a', function () {
+        window.top.location.href = this.href;
+    });
+</script>
+
+<script>
+    var searchText = '';
+
+    function search() {
+        searchText = $('#search').val();
+        loadMore(1);
+    }
+
+    var currentPage = 0;    //当前页
+    var loadingPage = false;    //是否在加载博客
+    var noMore = false;    //已经加载完了
+
+    $(function () {
+        loadMore(1);
+    });
+
+    /**
+     * 加载更多
+     */
+    function loadMore(page) {
+        //下面这个判断是在用户中心这种带有选项卡的页面，切换选项卡的时候
+        if (page === 1) {
+            //同时需要初始化变量
+            $("#list").empty();
+            noMore = false;
+            currentPage = 0;
+        }
+        loadingPage = true;
+        $.post('/scenic/page', {
+            pageSize: 10,
+            pageNum: page,
+            name: searchText
+        }, function (res) {
+            currentPage++;  //当前页增加
+            loadingPage = false; //加载完成
+            if (res.data.list.length === 0) {
+                noMore = true; //列表为空说明已经加载完了
+            }
+            $.each(res.data.list, function (index, data) {
+                var html = renderSimpleTemplate('template', data);
+                $('#list').append(html);
+            });
+        });
+    }
+
+    // 滚动到底部
+    var $window = $(window);
+    var $document = $(document);
+    $window.scroll(function () {
+        //当前页==0的时候，不加载，此时可能已经在异步加载了
+        //第二个条件是，已经加载但是还没有返回值的时候
+        if (currentPage === 0 || loadingPage || noMore) {
+            return;
+        }
+        if ($document.scrollTop() + $window.height() + 200 >= $document.height()) {
+            layer.msg("开始加载" + (1 + currentPage));
+            loadMore(currentPage + 1);
+        }
+    });
+</script>
+</body>
+</html>

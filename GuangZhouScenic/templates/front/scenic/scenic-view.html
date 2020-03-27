@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <title>景点详情——广州景点网站</title>
+    <script src="/static/js/mui.min.js"></script>
+    <link href="/static/css/mui.min.css" rel="stylesheet"/>
+    <link href="/static/css/basic.css" rel="stylesheet"/>
+    <link href="/static/css/app.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/icons-extra.css"/>
+    <script type="text/javascript" charset="utf-8">
+        mui.init();
+    </script>
+    <style>
+        .addshopcart {
+            height: 40px;
+            padding: 0 .8rem;
+            line-height: 40px;
+            border-top-left-radius: 20px;
+            border-bottom-left-radius: 20px;
+            border-top-right-radius: 20px;
+            border-bottom-right-radius: 20px;
+        }
+    </style>
+</head>
+<body>
+<header class="mui-bar mui-bar-transparent">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="mui-title">详情</h1>
+</header>
+<nav class="mui-bar mui-bar-tab mui-bar-topline" style="height:54px">
+
+    <a href="/" class="mui-block mui-pull-left mui-text-center" style="margin:0 1rem 0 1rem;color:#929292">
+        <span class="mui-icon mui-icon-extra mui-icon-extra-class" style="line-height:10px"></span>
+        <div style="font-size:12px;">首页</div>
+    </a>
+    <!--    <a href="#" class="mui-block mui-pull-left mui-text-center" style="margin:0 0 0 1rem;color:#929292">-->
+    <!--        <span class="mui-icon mui-icon-extra mui-icon-extra-heart" style="line-height:10px"></span>-->
+    <!--        <div style="font-size:12px;">收藏</div>-->
+    <!--    </a>-->
+    <div style="margin:.4rem 1rem 0 0;">
+        <a class="mui-inline mui-block mui-pull-right mui-btn-warning addshopcart"
+           href="/article/save?scenicId={{ scenic.id }}"> 打 卡 </a>
+    </div>
+
+</nav>
+<div class="mui-content">
+    <div class="mui-slider">
+        <div class="mui-slider-group mui-slider-loop">
+            <div class="mui-slider-item"><a href="#"><img src="{{ scenic.img }}"/></a></div>
+        </div>
+    </div>
+
+    <div style="padding:10px 0;background: #FFFFFF;">
+        <div class="mui-content-padded">
+            <h4 class="proname_normal">{{ scenic.name }}</h4>
+        </div>
+    </div>
+    <ul class="mui-table-view" style="background: #FFFFFF;">
+        <li class="mui-table-view-cell">
+            <p class="mui-inline">简介</p> {{ scenic.name }}
+        </li>
+        <li class="mui-table-view-cell">
+            <p class="mui-inline">地址</p> {{ scenic.address }}
+        </li>
+        <li class="mui-table-view-cell">
+            <p class="mui-inline">票价</p> {{ scenic.ticketPrice }}
+        </li>
+        <li class="mui-table-view-cell">
+            <p class="mui-inline">开放时间</p> {{ scenic.openTime }}
+        </li>
+    </ul>
+
+    <ul class="mui-table-view" style="margin:10px 0 0 0">
+        <li class="mui-table-view-cell">
+            <a class="mui-navigate-right" href="/scenic/article?id={{ scenic.id }}">
+                打卡文章
+            </a>
+        </li>
+    </ul>
+    <ul class="mui-table-view">
+        {% for article in articleList %}
+        <li class="mui-table-view-cell mui-media">
+            <a href="/article/view?id={{ article.id }}">
+                <div class="mui-media-body">
+                    <p>{{ article.user_name }}</p>
+                    <p class='mui-ellipsis-10' style="color: #242424;">{{ article.text }}</p>
+                </div>
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+
+    <h5 class="mui-text-center" style="margin:10px 0">———— 景点详情 ————</h5>
+    <div style="padding:10px 0;background: #FFFFFF;">
+        {%autoescape off%}
+        {{ scenic.content }}
+        {%endautoescape%}
+    </div>
+
+</div>
+
+<script>
+    mui.init({
+        swipeBack: true //启用右滑关闭功能
+    });
+</script>
+</body>
+</html>

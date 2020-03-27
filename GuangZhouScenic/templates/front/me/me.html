@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <title>个人中心</title>
+    <script src="/static/js/mui.min.js"></script>
+    <link href="/static/css/mui.min.css" rel="stylesheet"/>
+    <link href="/static/css/basic.css" rel="stylesheet"/>
+    <link href="/static/css/app.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/icons-extra.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/iconfont.css"/>
+    <script src="/static/js/iconfont.js"></script>
+    <script type="text/javascript" charset="utf-8">
+        mui.init();
+    </script>
+    <style>.mui-table-view.mui-grid-view .mui-table-view-cell .mui-media-body {
+        font-size: .9rem;
+        text-overflow: none;
+    }
+    </style>
+</head>
+<body>
+<header class="mui-bar mui-bar-transparent">
+</header>
+<nav class="mui-bar mui-bar-tab mui-bar-topline">
+    <a class="mui-tab-item" data-id="home" href="/">
+        <span class="mui-icon mui-icon-extra mui-icon-extra-class"></span>
+        <span class="mui-tab-label">景点</span>
+    </a>
+<!--    <a class="mui-tab-item" data-id="fenxiaozhongxin" href="/article">-->
+<!--        <span class="mui-icon mui-icon-extra mui-icon-extra-peoples"></span>-->
+<!--        <span class="mui-tab-label">打卡</span>-->
+<!--    </a>-->
+    <a class="mui-tab-item mui-active" data-id="user" href="/me">
+        <span class="mui-icon mui-icon-person"></span>
+        <span class="mui-tab-label">我的</span>
+    </a>
+</nav>
+<div class="mui-content">
+    <div class="user-bg">
+        <div class="mui-clearfix" style="padding: 2rem 10px 0 10px;text-align: center;">
+            <a href="#">
+<!--                <img src="images/pingjiaicon.jpg" class="mui-pull-left userface">-->
+                <div class="mui-media-body" style="margin: 1rem 0 0 1em;color: #ffffff;margin-bottom: 40px;">{{ user.name }}
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="mui-card" style="margin: 10px;">
+        <ul class="mui-table-view">
+            <li class="mui-table-view-cell">
+                <a class="mui-navigate-right" href="/me/article">
+                    <span class="mui-icon mui-icon-star qianbao-icon"></span>我的打卡
+                </a>
+            </li>
+            <li class="mui-table-view-cell">
+                <a class="mui-navigate-right" href="/me/changePassword">
+                    <span class="mui-icon mui-icon mui-icon-locked address-icon"></span>修改密码
+                </a>
+            </li>
+            <li class="mui-table-view-cell">
+                <a class="mui-navigate-right" href="/me/changeInfo">
+                    <span class="mui-icon mui-icon mui-icon-email shoucang-icon"></span>修改信息
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+<script>
+    mui('body').on('tap', 'a', function () {
+        window.top.location.href = this.href;
+    });
+</script>
+</body>
+</html>

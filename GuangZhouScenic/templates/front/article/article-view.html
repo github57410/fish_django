@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <title>打卡文章查看——广州景点网站</title>
+    <script src="/static/js/mui.min.js"></script>
+    <link href="/static/css/mui.min.css" rel="stylesheet"/>
+    <link href="/static/css/basic.css" rel="stylesheet"/>
+    <link href="/static/css/app.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/icons-extra.css"/>
+    <script type="text/javascript" charset="utf-8">
+        mui.init();
+    </script>
+    <style>
+        .addshopcart {
+            height: 40px;
+            padding: 0 .8rem;
+            line-height: 40px;
+            border-top-left-radius: 20px;
+            border-bottom-left-radius: 20px;
+            border-top-right-radius: 20px;
+            border-bottom-right-radius: 20px;
+        }
+    </style>
+</head>
+<body>
+<header class="mui-bar mui-bar-transparent">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="mui-title">详情</h1>
+</header>
+
+<div class="mui-content">
+    <div class="mui-slider">
+        <div class="mui-slider-group mui-slider-loop">
+            <div class="mui-slider-item"><a href="#"><img src="{{ scenic.img }}"/></a></div>
+        </div>
+    </div>
+
+    <div style="padding:10px 0;background: #FFFFFF;">
+        <div class="mui-content-padded">
+            <h4 class="proname_normal">{{ article.title }}</h4>
+        </div>
+    </div>
+    <ul class="mui-table-view" style="background: #FFFFFF;">
+        <li class="mui-table-view-cell">
+            <p class="mui-inline">景点</p> {{ scenic.name }}
+        </li>
+        <li class="mui-table-view-cell">
+            <p class="mui-inline">作者</p> {{ user.name }}
+        </li>
+        <li class="mui-table-view-cell">
+            <p class="mui-inline">打卡时间</p> {{ article.createTime }}
+        </li>
+    </ul>
+
+    <h5 class="mui-text-center" style="margin:10px 0">———— 详情 ————</h5>
+    <div style="padding:10px 0;background: #FFFFFF;">
+        {%autoescape off%}
+        {{ article.content }}
+        {%endautoescape%}
+    </div>
+
+</div>
+
+<script>
+    mui.init({
+        swipeBack: true //启用右滑关闭功能
+    });
+</script>
+</body>
+</html>

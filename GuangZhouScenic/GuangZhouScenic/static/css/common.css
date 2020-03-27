@@ -1,0 +1,157 @@
+
+html {
+    background: #FFFFFF;
+}
+
+#header {
+    background: #FFFFFF;
+}
+
+#mainNav {
+    background: #FFFFFF;
+}
+
+.info-table {
+    width: 100%;
+}
+
+.info-table tbody > tr > td {
+    border: 1px solid #e6e6e6;
+    padding: 10px 8px;
+}
+
+.info-table tbody > tr > td:nth-of-type(odd) {
+    background: #f0f2f5;
+    text-align: right;
+}
+
+@font-face {
+    font-family: 'password';
+    src: url(../font/PasswordEntry.ttf);
+}
+
+.password-input {
+    font-family: 'password', serif;
+}
+
+.img-box {
+    width: 100%;
+    height: 200px;
+    position: relative;
+    z-index: 1;
+}
+
+.img-box img {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 200px;
+    margin: auto;
+    z-index: -1;
+    *zoom: 1;
+}
+
+.img-box:before {
+    content: "";
+    display: inline-block;
+    padding-bottom: 100%;
+    width: 0.1px;
+    vertical-align: middle;
+}
+
+.sub-info {
+    color: #666666;
+    margin-bottom: 13px;
+    line-height: 14px;
+    font-size: small;
+}
+
+.img-list-container {
+    text-align: center;
+}
+
+.img-list-container img {
+    margin-bottom: 15px;
+}
+
+.house-form-item {
+    width: 850px;
+    padding-bottom: 0 !important;
+    /*display: inline-block;*/
+}
+
+.house-form-item .layui-form-label {
+    width: 120px;
+}
+
+.house-form-item .layui-input-block {
+    margin-left: 150px;
+}
+
+.login-box {
+    width: 360px;
+    border: 1px solid #d9dadc;
+    background: #fff;
+    position: absolute;
+    top: 196px;
+    right: 90px;
+    padding: 0 30px;
+}
+
+.login-box .layui-input-inline {
+    width: 230px !important;
+}
+
+.login-btn {
+    width: 100%;
+    background: #58b147;
+    font-size: 18px;
+}
+
+.house-info-wrap {
+    margin-top: 20px;
+    margin-bottom: 0px;
+}
+
+.house-form-item ul {
+    padding: 0;
+}
+
+.house-info-wrap li {
+    line-height: 34px;
+    height: 34px;
+}
+
+.house-info-wrap {
+    /*width: 60%;*/
+}
+
+.house-info-left {
+    float: left;
+    width: 40%;
+}
+
+.house-info-right {
+    float: left;
+    width: 60%;
+}
+
+.house-info-name {
+    margin-right: 25px;
+    color: #999;
+}
+
+.query-active a {
+    color: #ff5500 !important;
+}
+
+.sn-quick-menu .item {
+    margin-right: 22px;
+}
+
+.common-dialog {
+    padding: 20px 20px 0 20px;
+}

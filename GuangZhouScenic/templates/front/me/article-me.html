@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <title>个人中心</title>
+    <script src="/static/js/mui.min.js"></script>
+    <link href="/static/css/mui.min.css" rel="stylesheet"/>
+    <link href="/static/css/basic.css" rel="stylesheet"/>
+    <link href="/static/css/app.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/icons-extra.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/iconfont.css"/>
+    <script src="/static/js/iconfont.js"></script>
+    <script type="text/javascript" charset="utf-8">
+        mui.init();
+    </script>
+    <style>.mui-table-view.mui-grid-view .mui-table-view-cell .mui-media-body {
+        font-size: .9rem;
+        text-overflow: none;
+    }
+
+    .mui-checkbox a img {
+        margin-left: 58px;
+        margin-top: 5px;
+        margin-right: 5px;
+        width: 110px;
+        height: 70px;
+    }
+    </style>
+</head>
+<body>
+<header class="mui-bar mui-bar-transparent">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="mui-title">我的打卡</h1>
+</header>
+<div class="mui-content">
+    <div style="margin-top: 45px;">
+        <ul class="mui-table-view" style="margin: 0 0 10px;">
+            {% for article in articleList %}
+            <li class="mui-table-view-cell mui-media">
+                <div class="mui-clearfix order-list-time">
+                    <p class="mui-block mui-pull-left">{{ article.create_time|date:"Y-m-d H:i:s" }}</p>
+                </div>
+                <div class="mui-input-row mui-checkbox mui-left">
+                    <a href="/article/view?id={{ article.id }}">
+                        <img class="mui-pull-left" src="{{ article.img }}" style="margin-left: 10px;">
+                        <div class="mui-media-body">
+                            <span class="mui-ellipsis name">{{ article.title }}</span>
+                            <p class="mui-ellipsis-2">{{ article.text }}</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="mui-text-right">
+                    <a type="button" class="mui-btn mui-btn-danger mui-btn-outlined"
+                       href="/article/save?id={{ article.id }}">编辑</a>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+<script>
+    mui('body').on('tap', 'a', function () {
+        window.top.location.href = this.href;
+    });
+</script>
+</body>
+</html>

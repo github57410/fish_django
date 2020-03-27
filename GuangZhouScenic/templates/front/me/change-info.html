@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <title>个人中心</title>
+    <script src="/static/js/mui.min.js"></script>
+    <link href="/static/css/mui.min.css" rel="stylesheet"/>
+    <link href="/static/css/basic.css" rel="stylesheet"/>
+    <link href="/static/css/app.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/icons-extra.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/iconfont.css"/>
+    <script src="/static/js/iconfont.js"></script>
+    <script type="text/javascript" charset="utf-8">
+        mui.init();
+    </script>
+    <style>.mui-table-view.mui-grid-view .mui-table-view-cell .mui-media-body {
+        font-size: .9rem;
+        text-overflow: none;
+    }
+    </style>
+    <link rel="stylesheet" href="/static/xadmin/css/login.css">
+    <script src="/static/layui/layui.js" charset="utf-8"></script>
+    <!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<header class="mui-bar mui-bar-transparent" style="background: #FFFFFF;">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="mui-title">修改信息</h1>
+</header>
+<div class="login layui-anim layui-anim-up" style="width: 80%;">
+    <form method="post" class="layui-form">
+        姓名
+        <input name="name" placeholder="姓名" type="text" lay-verify="required" class="layui-input"
+               value="{{ user.name }}">
+        <hr class="hr15">
+        号码
+        <input name="number" lay-verify="required" placeholder="号码" type="text" class="layui-input"
+               value="{{ user.number }}">
+        <hr class="hr15">
+        <input value="确认" lay-submit lay-filter="login" style="width:100%;" type="submit">
+    </form>
+</div>
+
+<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script src="/static/layui/layui.js" charset="utf-8"></script>
+<script src="/static/js/common.js"></script>
+<script>
+    mui('body').on('tap', 'a', function () {
+        window.top.location.href = this.href;
+    });
+
+    $(function () {
+        layui.use('form', function () {
+            var form = layui.form;
+            form.on('submit(login)', function (data) {
+                changePassword(data.field);
+                return false;
+            });
+        });
+    });
+
+    function changePassword(loginData) {
+        $.post('/me/changeInfo', loginData, function (res) {
+            if (res.success) {
+                showAlertThenJumpTo('修改成功，请重新登录', '/login');
+            } else {
+                layer.alert(res.message);
+            }
+        });
+    }
+</script>
+</body>
+</html>
